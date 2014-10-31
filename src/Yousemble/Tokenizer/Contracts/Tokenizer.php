@@ -15,7 +15,7 @@ interface Tokenizer{
    * @return Token The issued token
    *
    */
-  public function issue($event_type = 'default', Carbon $expires_at = null);
+  public function issue($event_type = null, Carbon $expires_at = null);
 
 
   /**

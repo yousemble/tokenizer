@@ -1,7 +1,7 @@
 <?php namespace Yousemble\Tokenizer;
 
 use Yousemble\Tokenizer\Contracts\TokenRepository as TokenRepositoryContract;
-use Illuminate\Contracts\Events\Dispatcher;
+
 
 class EloquentTokenRepository implements TokenRepositoryContract{
 

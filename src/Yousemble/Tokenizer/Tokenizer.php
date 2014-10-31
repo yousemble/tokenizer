@@ -6,6 +6,10 @@ use Yousemble\Tokenizer\Contracts\TokenRepository;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\Str;
 
+use Illuminate\Contracts\Events\Dispatcher;
+
+use Carbon\Carbon;
+
 class Tokenizer implements TokenizerContract {
 
   protected $repo;

@@ -28,7 +28,8 @@ class TokenizerServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->singleton('Yousemble\Tokenizer\Contracts\Tokenizer', 'Yousemble\Tokenizer\Tokenizer');
+    $this->app->bind('Yousemble\Tokenizer\Contracts\TokenRepository', 'Yousemble\Tokenizer\EloquentTokenRepository');
 	}
 
 	/**
