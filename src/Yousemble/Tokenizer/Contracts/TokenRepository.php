@@ -17,6 +17,15 @@ interface TokenRepository{
   public function findByHash($hash);
 
 
+  /**
+   * Create a new token in the repo
+   * @param  string $hash
+   * @param  string $event_type
+   * @param  Carbon $expires_at
+   * @return Token           The newly created token
+   */
+  public function create($hash, $event_type = null, $expires_at = null);
+
 }
 
 

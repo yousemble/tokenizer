@@ -1,9 +1,10 @@
 <?php namespace Yousemble\Tokenizer;
 
 use Yousemble\Tokenizer\Contracts\TokenRepository as TokenRepositoryContract;
-
+use Illuminate\Contracts\Events\Dispatcher;
 
 class EloquentTokenRepository implements TokenRepositoryContract{
+
 
   /**
    * Find a token by ID
@@ -21,6 +22,24 @@ class EloquentTokenRepository implements TokenRepositoryContract{
    */
   public function findByHash($hash){
     return EloquentToken::where('key', '=', $hash)->first();
+  }
+
+
+  /**
+   * Create a new token in the repo
+   * @param  string $hash
+   * @param  string $event_type
+   * @param  Carbon $expires_at
+   * @return Token           The newly created token
+   */
+  public function create($hash, $event_type = null, $expires_at = null){
+    $token = EloquentToken::create([
+        'key' => $hash,
+        'event_type' => $event_type,
+        'expires_at' => $expires_at
+      ]);
+
+    return $token;
   }
 
 }
