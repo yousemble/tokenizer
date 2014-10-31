@@ -1,8 +1,12 @@
 <?php namespace Yousemble\Tokenizer;
 
 use Yousemble\Tokenizer\Contracts\Token as TokenContract;
+use Yousemble\Tokenizer\Exceptions\TokenIsExpiredException;
+use Yousemble\Tokenizer\Exceptions\TokenIsVerifiedException;
 
 use Illuminate\Database\Eloquent\Model;
+
+use Carbon\Carbon;
 
 class EloquentToken extends Model implements TokenContract{
 
@@ -28,7 +32,7 @@ class EloquentToken extends Model implements TokenContract{
    * @return int
    */
   public function getId(){
-    return $this->id;
+    return (int) $this->id;
   }
 
   /**
@@ -36,7 +40,7 @@ class EloquentToken extends Model implements TokenContract{
    * @return string
    */
   public function getHash(){
-    return $this->key;
+    return (string) $this->key;
   }
 
   /**
@@ -44,7 +48,7 @@ class EloquentToken extends Model implements TokenContract{
    * @return string
    */
   public function getEventType(){
-    return $this->event_type;
+    return (string) $this->event_type;
   }
 
   /**

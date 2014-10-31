@@ -2,6 +2,8 @@
 
 use Yousemble\Tokenizer\Contracts\Tokenizer as TokenizerContract;
 use Yousemble\Tokenizer\Contracts\TokenRepository;
+use Yousemble\Tokenizer\Events\TokenIssuedEvent;
+use Yousemble\Tokenizer\Events\TokenVerifiedEvent;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\Str;
@@ -74,7 +76,7 @@ class Tokenizer implements TokenizerContract {
 
     $token->verify();
 
-    $this->events->fire('ys.tokenizer.verified.' . $token->getEventType(), [new TokenIssuedEvent($token)]);
+    $this->events->fire('ys.tokenizer.verified.' . $token->getEventType(), [new TokenVerifiedEvent($token)]);
 
     return $token;
   }
