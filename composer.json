@@ -4,7 +4,7 @@
     "authors": [
         {
             "name": "Christiaan Lombard",
-            "email": "base1.christiaan@gmail.com"
+            "email": "christiaan.lombard@gmail.com"
         }
     ],
     "require": {
@@ -19,5 +19,5 @@
             "Yousemble\\Tokenizer\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
