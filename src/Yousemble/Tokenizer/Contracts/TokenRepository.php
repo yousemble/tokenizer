@@ -3,28 +3,22 @@
 interface TokenRepository{
 
   /**
-   * Find a token by ID
-   * @param  int $token_id
-   * @return Token           The found token or null if not found
-   */
-  public function findById($token_id);
-
-  /**
-   * Find a token by hash
-   * @param  string $hash
+   * Find a token by key
+   * @param  string $key
    * @return Token            The found token or null if not found
    */
-  public function findByHash($hash);
+  public function findByKey($hash);
 
 
   /**
    * Create a new token in the repo
-   * @param  string $hash
+   * @param  string $email
+   * @param  string $key
    * @param  string $event_type
    * @param  Carbon $expires_at
    * @return Token           The newly created token
    */
-  public function create($hash, $event_type = null, $expires_at = null);
+  public function create($email, $key, $type = null, $expires_at = null);
 
 }
 

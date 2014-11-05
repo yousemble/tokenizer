@@ -11,7 +11,7 @@ class EloquentTokenRepository implements TokenRepositoryContract{
    * @param  int $token_id
    * @return Token           The found token or null if not found
    */
-  public function findById($token_id){
+  public function findByEmail($token_id){
     return EloquentToken::find($token_id);
   }
 
@@ -32,11 +32,12 @@ class EloquentTokenRepository implements TokenRepositoryContract{
    * @param  Carbon $expires_at
    * @return Token           The newly created token
    */
-  public function create($hash, $event_type = null, $expires_at = null){
+  public function create($user_id, $hash, $event_type = null, $expires_at = null){
     $token = EloquentToken::create([
         'key' => $hash,
         'event_type' => $event_type,
-        'expires_at' => $expires_at
+        'expires_at' => $expires_at,
+        'meta' => $meta
       ]);
 
     return $token;

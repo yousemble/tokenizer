@@ -13,8 +13,9 @@ class EloquentToken extends Model implements TokenContract{
   protected $table = 'tokens';
 
   protected $fillable = [
+    'email',
     'key',
-    'event_type',
+    'type',
     'expires_at'
   ];
 
@@ -28,18 +29,18 @@ class EloquentToken extends Model implements TokenContract{
   -------------------------------------------------- */
 
   /**
-   * Get the id attribute
-   * @return int
+   * Get the email attribute
+   * @return string
    */
-  public function getId(){
-    return (int) $this->id;
+  public function getEmail(){
+    return (string) $this->email;
   }
 
   /**
    * Get the hash attribute
    * @return string
    */
-  public function getHash(){
+  public function getKey(){
     return (string) $this->key;
   }
 
@@ -47,9 +48,10 @@ class EloquentToken extends Model implements TokenContract{
    * Get the event-type attribute
    * @return string
    */
-  public function getEventType(){
+  public function getType(){
     return (string) $this->event_type;
   }
+
 
   /**
    * Get the expires_at timestamp attribute

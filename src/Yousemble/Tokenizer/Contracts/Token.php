@@ -7,22 +7,23 @@ interface Token{
   -------------------------------------------------- */
 
   /**
-   * Get the id attribute
-   * @return int
+   * Get the email attribute
+   * @return string
    */
-  public function getId();
+  public function getEmail();
 
   /**
    * Get the hash attribute
    * @return string
    */
-  public function getHash();
+  public function getKey();
 
   /**
    * Get the event-type attribute
    * @return string
    */
-  public function getEventType();
+  public function getType();
+
 
   /**
    * Get the expires_at timestamp attribute

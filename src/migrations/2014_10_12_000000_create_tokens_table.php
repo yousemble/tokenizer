@@ -14,12 +14,13 @@ class CreateTokensTable extends Migration {
 	{
 		Schema::create('tokens', function(Blueprint $table)
 		{
-			$table->increments('id');
-      $table->string('key', 120)->unique();
-			$table->string('event_type', 60)->nullable();
+      $table->string('key', 120);
+      $table->primary('key');
+      $table->string('email', 120);
+      $table->string('type', 60)->nullable();
       $table->timestamp('expires_at')->nullable();
       $table->timestamp('verified_at')->nullable();
-      $table->timestamps();
+      $table->timestamp('created_at');
 		});
 	}
 

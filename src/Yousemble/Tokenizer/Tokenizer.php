@@ -39,7 +39,7 @@ class Tokenizer implements TokenizerContract {
    * @return Token The issued token
    *
    */
-  public function issue($event_type = null, Carbon $expires_at = null){
+  public function issue($email_to, $event_type = null, Carbon $expires_at = null){
 
     //get hash length from config or use 120 default
     $hash_length = 120;
@@ -49,7 +49,7 @@ class Tokenizer implements TokenizerContract {
 
     $hash = Str::random($hash_length);
 
-    $token = $this->repo->create($hash, $event_type, $expires_at);
+    $token = $this->repo->create($hash, $event_type, $expires_at, $meta);
 
     $this->events->fire('ys.tokenizer.issued.' . $event_type, [new TokenIssuedEvent($token)]);
 

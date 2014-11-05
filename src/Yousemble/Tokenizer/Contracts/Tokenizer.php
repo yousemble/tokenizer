@@ -8,14 +8,14 @@ interface Tokenizer{
    * Issue a new token
    *
    * fire
-   *   tokenizer.issued.[event_type]
+   *   ys.tokenizer.issued.[type]
    *
-   * @param string $event_type The event_type param for the token, defaults to 'default'
+   * @param string $type The type param for the token
    * @param Carbon $expires_at A custom date for token expiry, null indicates 'never expires'
    * @return Token The issued token
    *
    */
-  public function issue($event_type = null, Carbon $expires_at = null);
+  public function issue($email, $type = null, Carbon $expires_at = null);
 
 
   /**
@@ -23,9 +23,9 @@ interface Tokenizer{
    *  Attempt verification of a token
    *
    * fires
-   *    tokenizer.verified.[event_type]
-   *    tokenizer.reverified.[event_type]
-   *    tokeniser.verification-failed.[event_type]
+   *    ys.tokenizer.verified.[type]
+   *    ys.tokenizer.reverified.[type]
+   *    ys.tokenizer.verification-failed.[type]
    *
    * @return Token The verified token or null if verification failed
    *
