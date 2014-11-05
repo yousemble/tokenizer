@@ -30,7 +30,7 @@ interface Tokenizer{
    * @return Token The verified token or null if verification failed
    *
    */
-  public function attemptVerification($hash);
+  public function attemptVerification($key);
 
 
 }

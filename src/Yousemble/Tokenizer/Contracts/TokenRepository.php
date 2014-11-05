@@ -7,7 +7,7 @@ interface TokenRepository{
    * @param  string $key
    * @return Token            The found token or null if not found
    */
-  public function findByKey($hash);
+  public function findByKey($key);
 
 
   /**

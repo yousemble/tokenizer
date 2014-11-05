@@ -2,8 +2,8 @@
 
 use Yousemble\Tokenizer\Contracts\Tokenizer as TokenizerContract;
 use Yousemble\Tokenizer\Contracts\TokenRepository;
-use Yousemble\Tokenizer\Events\TokenIssuedEvent;
-use Yousemble\Tokenizer\Events\TokenVerifiedEvent;
+use Yousemble\Tokenizer\Events\TokenEvent;
+use Yousemble\Tokenizer\Utility\Hasher;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\Str;
@@ -28,33 +28,18 @@ class Tokenizer implements TokenizerContract {
   /*  TokenizerContract
   -------------------------------------------------- */
 
-  /**
-   * Issue a new token
-   *
-   * fire
-   *   tokenizer.issued.[event_type]
-   *
-   * @param string $event_type The event_type param for the token (optional)
-   * @param Carbon $expires_at A custom date for token expiry, null indicates 'never expires'
-   * @return Token The issued token
-   *
-   */
-  public function issue($email_to, $event_type = null, Carbon $expires_at = null){
+  public function issue($email, $type = null, Carbon $expires_at = null)
+  {
 
-    //get hash length from config or use 120 default
-    $hash_length = 120;
-    if($this->config->has('yousemble/tokenizer::token.hash_length')){
-      $hash_length = (int) $this->config->get('yousemble/tokenizer::token.hash_length');
-    }
+    $hash_length = (int) $this->config->get('yousemble/tokenizer::token.hash_length', 120);
 
-    $hash = Str::random($hash_length);
+    $key = Hasher::makeKey($hash_length);
 
-    $token = $this->repo->create($hash, $event_type, $expires_at, $meta);
+    $token = $this->repo->create($email, $key, $type, $expires_at);
 
-    $this->events->fire('ys.tokenizer.issued.' . $event_type, [new TokenIssuedEvent($token)]);
+    $this->events->fire('ys.tokenizer.issued.' . $type, [new TokenEvent($token)]);
 
     return $token;
-
   }
 
 
@@ -63,20 +48,20 @@ class Tokenizer implements TokenizerContract {
    *  Attempt verification of a token
    *
    * fires
-   *    ys.tokenizer.verified.[event_type]
+   *    ys.tokenizer.verified.[type]
    *
    * @return Token The verified token or null if verification failed
    *
    */
-  public function attemptVerification($hash){
+  public function attemptVerification($key){
 
-    $token = $this->repo->findByHash($hash);
+    $token = $this->repo->findByKey($key);
 
     if(!$token || $token->isExpired() || $token->isVerified()) return null;
 
     $token->verify();
 
-    $this->events->fire('ys.tokenizer.verified.' . $token->getEventType(), [new TokenVerifiedEvent($token)]);
+    $this->events->fire('ys.tokenizer.verified.' . $token->getEventType(), [new TokenEvent($token)]);
 
     return $token;
   }
